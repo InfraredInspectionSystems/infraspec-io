@@ -58,6 +58,20 @@
             .tw-block.tw-p-2
               v-icon.tw-p-1.tw-cursor-pointer.controller-button(size="22" @click="handleStartStop") {{ !play ? icons['mdiPlay'] : icons['mdiPause'] }}
             .tw-ml-auto
+                   v-icon.tw-p-1.tw-cursor-pointer.controller-button(size="22" @click="handlePanLeft") {{ icons['mdiArrowLeftThick'] }}
+            .tw-ml-auto
+              v-icon.tw-p-1.tw-cursor-pointer.controller-button(size="22" @click="handlePanRight") {{ icons['mdiArrowRightThick'] }}
+            .tw-ml-auto
+              v-icon.tw-p-1.tw-cursor-pointer.controller-button(size="22" @click="handleTiltUp") {{ icons['mdiArrowUpThick'] }}
+            .tw-ml-auto
+              v-icon.tw-p-1.tw-cursor-pointer.controller-button(size="22" @click="handleTiltDown") {{ icons['mdiArrowDownThick'] }}
+            .tw-ml-auto
+              v-icon.tw-p-1.tw-cursor-pointer.controller-button(size="22" @click="handleResetPtz") {{ icons['mdiCursorMove'] }}
+            .tw-ml-auto
+              v-icon.tw-p-1.tw-cursor-pointer.controller-button(size="22" @click="handleZoomIn") {{ icons['mdiMagnifyPlus'] }}
+            .tw-ml-auto
+              v-icon.tw-p-1.tw-cursor-pointer.controller-button(size="22" @click="handleZoomOut") {{ icons['mdiMagnifyMinus'] }}
+            .tw-ml-auto
             .tw-block.tw-p-2.tw-pr-0(v-if="!hideIndicatorReload")
               v-icon.tw-p-1.tw-cursor-pointer.controller-button(size="22" @click="refreshStream") {{ icons['mdiRefresh'] }}
             .tw-block.tw-p-2.tw-pr-0(v-if="camera.settings.audio && !hideIndicatorAudio")
@@ -94,6 +108,13 @@ import {
   mdiArrowCollapse,
   mdiPause,
   mdiPlay,
+  mdiArrowLeftThick,
+  mdiArrowRightThick,
+  mdiArrowUpThick,
+  mdiArrowDownThick,
+  mdiCursorMove,
+  mdiMagnifyPlus,
+  mdiMagnifyMinus,
   mdiReload,
   mdiRefresh,
   mdiVideoOff,
@@ -136,6 +157,13 @@ export default {
       mdiArrowCollapse,
       mdiPause,
       mdiPlay,
+      mdiArrowLeftThick,
+      mdiArrowRightThick,
+      mdiArrowUpThick,
+      mdiArrowDownThick,
+      mdiCursorMove,
+      mdiMagnifyPlus,
+      mdiMagnifyMinus,
       mdiReload,
       mdiRefresh,
       mdiVideoOff,
@@ -217,6 +245,13 @@ export default {
         this.play = false;
       }
     },
+    handlePanLeft() {},
+    handlePanRight() {},
+    handleTiltUp() {},
+    handleTiltDown() {},
+    handleResetPtz() {},
+    handleZoomIn() {},
+    handleZoomOut() {},
     handleVolume() {
       if (this.player) {
         const state = this.player.volume;
