@@ -27,7 +27,7 @@ module.exports = {
   outputDir: path.resolve(__dirname, '../interface'),
   productionSourceMap: false,
   pwa: {
-    name: 'camera.ui',
+    name: 'infraspec',
     themeColor: '#f1f1f1',
     msTileColor: '#f1f1f1',
     appleMobileWebAppCapable: 'yes',
@@ -37,9 +37,9 @@ module.exports = {
     manifestOptions: {
       lang: 'en',
       dir: 'ltr',
-      name: 'camera.ui',
-      short_name: 'camera.ui',
-      description: 'camera.ui is a user interface for RTSP capable cameras.',
+      name: 'infraspec',
+      short_name: 'infraspec',
+      description: 'infraspec is a user interface for IIS network cameras.',
       theme_color: '#f1f1f1',
       background_color: '#f1f1f1',
       display: 'standalone',

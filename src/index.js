@@ -56,7 +56,7 @@ export default class CameraUI {
     process.env.CUI_STORAGE_RECORDINGS_PATH = path.resolve(storagePath, 'recordings');
     process.env.CUI_STORAGE_REPORTS_PATH = path.resolve(storagePath, 'reports');
 
-    process.env.CUI_MODULE_NAME = environment.moduleName || 'camera.ui';
+    process.env.CUI_MODULE_NAME = environment.moduleName || 'infraspec';
     process.env.CUI_MODULE_VERSION = environment.moduleVersion || packageJson.version;
     process.env.CUI_MODULE_GLOBAL = environment.global ? '1' : '0';
     process.env.CUI_MODULE_SUDO = environment.sudo ? '1' : '0';
