@@ -138,7 +138,7 @@ module.exports = {
     config.performance.maxEntrypointSize(500000).maxAssetSize(500000);
     config.plugin('html').tap((arguments_) => {
       const payload = arguments_;
-      payload[0].title = 'camera.ui';
+      payload[0].title = 'infraspec.ui';
       return payload;
     });
   },

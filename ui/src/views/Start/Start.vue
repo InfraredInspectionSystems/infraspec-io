@@ -19,7 +19,7 @@
           .tw-block
             v-img(src="@/assets/img/logo.svg" width="42" height="50")
           h5.tw-text-xl.tw-font-light.tw-mt-3 {{ $t('welcome_message') }}
-          h1.tw-text-4xl.tw-font-black.tw-leading-7 camera.ui
+          h1.tw-text-4xl.tw-font-black.tw-leading-7 infraspec.io
           .tw-mt-5.text-muted.tw-text-center.tw-text-sm {{ startMsg1 }}
             br 
             | {{ startMsg2 }}

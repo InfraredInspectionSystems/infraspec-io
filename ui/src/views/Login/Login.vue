@@ -7,7 +7,7 @@
         .tw-block
           h2.tw-leading-10.tw-font-black {{ $t('signin') }}
           span.subtitle.tw-font-medium {{ $t('welcome_message') }} 
-            strong.text-primary camera.ui
+            strong.text-primary infraspec.io
         .tw-ml-auto
           v-img.logo(src="@/assets/img/logo.svg" width="35px")
       v-row.tw-w-full.tw-m-0.tw-mt-5
