@@ -102,6 +102,7 @@
 import LightBox from 'vue-it-bigger';
 import 'vue-it-bigger/dist/vue-it-bigger.min.css';
 import JSMpeg from '@seydx/jsmpeg/lib/index.js';
+const axios = require('axios').default;
 import JSMpegWritableSource from '@/common/jsmpeg-source.js';
 import {
   mdiArrowExpand,
@@ -245,13 +246,111 @@ export default {
         this.play = false;
       }
     },
-    handlePanLeft() {},
-    handlePanRight() {},
-    handleTiltUp() {},
-    handleTiltDown() {},
-    handleResetPtz() {},
-    handleZoomIn() {},
-    handleZoomOut() {},
+    handlePanLeft() {
+      axios
+        .get(`http://localhost:2000/ptz/left?address=${this.camera.manufacturer}&id=${this.camera.model}`)
+        .then(function (response) {
+          // handle success
+          console.log(response);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .then(function () {
+          // always executed
+        });
+    },
+    handlePanRight() {
+      axios
+        .get(`http://localhost:2000/ptz/right?address=${this.camera.manufacturer}&id=${this.camera.model}`)
+        .then(function (response) {
+          // handle success
+          console.log(response);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .then(function () {
+          // always executed
+        });
+    },
+    handleTiltUp() {
+      axios
+        .get(`http://localhost:2000/ptz/up?address=${this.camera.manufacturer}&id=${this.camera.model}`)
+        .then(function (response) {
+          // handle success
+          console.log(response);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .then(function () {
+          // always executed
+        });
+    },
+    handleTiltDown() {
+      axios
+        .get(`http://localhost:2000/ptz/down?address=${this.camera.manufacturer}&id=${this.camera.model}`)
+        .then(function (response) {
+          // handle success
+          console.log(response);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .then(function () {
+          // always executed
+        });
+    },
+    handleResetPtz() {
+      axios
+        .get(`http://localhost:2000/ptz/reset?address=${this.camera.manufacturer}&id=${this.camera.model}`)
+        .then(function (response) {
+          // handle success
+          console.log(response);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .then(function () {
+          // always executed
+        });
+    },
+    handleZoomIn() {
+      axios
+        .get(`http://localhost:2000/ptz/zoomin?address=${this.camera.manufacturer}&id=${this.camera.model}`)
+        .then(function (response) {
+          // handle success
+          console.log(response);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .then(function () {
+          // always executed
+        });
+    },
+    handleZoomOut() {
+      axios
+        .get(`http://localhost:2000/ptz/zoomout?address=${this.camera.manufacturer}&id=${this.camera.model}`)
+        .then(function (response) {
+          // handle success
+          console.log(response);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .then(function () {
+          // always executed
+        });
+    },
     handleVolume() {
       if (this.player) {
         const state = this.player.volume;
