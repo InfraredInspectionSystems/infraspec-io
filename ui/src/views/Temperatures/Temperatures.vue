@@ -10,10 +10,10 @@
 
     .tw-mt-10.tw-relative
       h3 {{ $t('cpu_temperature') }}
-      .chart-badge-loading.tw-flex.tw-justify-center.tw-items-center(v-if="!tempData.data.length")
+      .chart-badge-loading.tw-flex.tw-justify-center.tw-items-center(v-if="!camTempData.data.length")
         v-progress-circular(indeterminate color="var(--cui-primary)")
-      .chart-badge.tw-flex.tw-justify-center.tw-items-center.tw-text-white {{ tempData.data.length ? `${Math.round(tempData.data[tempData.data.length-1].value)}°` : '0°' }}
-      Chart.tw-mt-5(:dataset="tempData" :options="areaCpuTempOptions")
+      .chart-badge.tw-flex.tw-justify-center.tw-items-center.tw-text-white {{ camTempData.data.length ? `${Math.round(camTempData.data[tempData.data.length-1].value)}°` : '0°' }}
+      Chart.tw-mt-5(:dataset="camTempData" :options="camTempsOptions")
 
   LightBox(
     ref="lightboxBanner"
@@ -35,7 +35,7 @@ import socket from '@/mixins/socket';
 import Chart from '@/components/utilization-charts.vue';
 
 export default {
-  name: 'Utilization',
+  name: 'Temperatures',
 
   components: {
     Chart,
@@ -70,6 +70,11 @@ export default {
       diskSpaceData: {
         label: this.$t('system'),
         label2: this.$t('recordings'),
+        data: [],
+      },
+      camTempData: {
+        label: this.$t('Camera 1 - Preset 1 - Region 2'),
+        label2: this.$t('Camera 1 - Preset 1 - Region 3'),
         data: [],
       },
 
@@ -143,6 +148,75 @@ export default {
         },
       },
       areaCpuTempOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        elements: {
+          point: {
+            radius: 0,
+            hitRadius: 10,
+            hoverRadius: 10,
+          },
+        },
+        tooltips: {
+          enabled: true,
+          mode: 'single',
+          callbacks: {
+            title: (tooltipItems) => {
+              let time = new Date(tooltipItems[0].xLabel);
+              time.setTime(time.getTime() - new Date().getTimezoneOffset() * 60 * 1000);
+              time = time.toISOString().split('T');
+              return `${time[0]} - ${time[1].split('.')[0]}`;
+            },
+            label: (tooltipItems) => {
+              return ` ${tooltipItems.yLabel.toFixed(0)}°`;
+            },
+          },
+        },
+        scales: {
+          xAxes: [
+            {
+              display: true,
+              gridLines: {
+                display: true,
+                color: 'rgba(92,92,92, 0.3)',
+              },
+              scaleLabel: {
+                display: false,
+                //labelString: 'Month',
+              },
+              type: 'time',
+              time: {
+                unit: 'minutes',
+                displayFormats: { minutes: 'HH:mm' },
+                unitStepSize: 5,
+              },
+            },
+          ],
+          yAxes: [
+            {
+              display: true,
+              gridLines: {
+                display: true,
+                color: 'rgba(92,92,92, 0.3)',
+              },
+              scaleLabel: {
+                display: false,
+                //labelString: 'Value',
+              },
+              ticks: {
+                min: 0,
+                max: 200,
+                stepSize: 10,
+                callback: function (value) {
+                  return value + '°';
+                },
+              },
+              type: 'linear',
+            },
+          ],
+        },
+      },
+      camTempsOptions: {
         responsive: true,
         maintainAspectRatio: false,
         elements: {
@@ -357,11 +431,13 @@ export default {
     this.$socket.client.on('cpuTemp', this.cpuTemp);
     this.$socket.client.on('memory', this.memory);
     this.$socket.client.on('diskSpace', this.diskSpace);
+    this.$socket.client.on('camTemps', this.camTemps);
 
     this.$socket.client.emit('getCpuLoad');
     this.$socket.client.emit('getCpuTemp');
     this.$socket.client.emit('getMemory');
     this.$socket.client.emit('getDiskSpace');
+    this.$socket.client.emit('getCameraTemps');
   },
 
   mounted() {
@@ -373,6 +449,7 @@ export default {
     this.$socket.client.off('cpuTemp', this.cpuTemp);
     this.$socket.client.off('memory', this.memory);
     this.$socket.client.off('diskSpace', this.diskSpace);
+    this.$socket.client.off('getCameraTemps', this.camTemps);
   },
 
   methods: {
@@ -387,6 +464,9 @@ export default {
     },
     diskSpace(data) {
       this.diskSpaceData.data = data;
+    },
+    camTemps(data) {
+      this.camTempData.data = data;
     },
   },
 };
