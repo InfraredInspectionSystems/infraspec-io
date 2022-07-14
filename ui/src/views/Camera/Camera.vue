@@ -10,6 +10,10 @@
           vue-aspect-ratio(ar="16:9" width="100%")
             VideoCard(:ref="camera.name" :camera="camera" stream noLink hideNotifications)
           
+    .tw-flex.tw-flex-wrap
+      v-row.tw-w-full.tw-h-full
+        v-col.tw-mb-3(:cols="cols")
+          Chart.tw-mt-5(:dataset="camTempData" :options="camTempsOptions")
     v-col.tw-flex.tw-justify-between.tw-items-center.tw-mt-2(cols="12")
       .tw-w-full.tw-flex.tw-justify-between.tw-items-center
         .tw-block
@@ -76,6 +80,7 @@ import { getCamera, getCameraSettings } from '@/api/cameras.api';
 import { getNotifications } from '@/api/notifications.api';
 
 import VideoCard from '@/components/camera-card.vue';
+import Chart from '@/components/utilization-charts.vue';
 
 import socket from '@/mixins/socket';
 
@@ -87,6 +92,7 @@ export default {
   components: {
     LightBox,
     VideoCard,
+    Chart,
     'vue-aspect-ratio': VueAspectRatio,
   },
 
@@ -97,19 +103,95 @@ export default {
     next();
   },
 
-  data: () => ({
-    camera: {},
-    cols: 12,
-    icons: {
-      mdiOpenInNew,
-      mdiPlusCircle,
-    },
-    images: [],
-    loading: true,
-    notifications: [],
-    notificationsPanel: [0],
-    showNotifications: false,
-  }),
+  data() {
+    return {
+      camera: {},
+      cols: 12,
+      icons: {
+        mdiOpenInNew,
+        mdiPlusCircle,
+      },
+      images: [],
+      loading: true,
+      notifications: [],
+      notificationsPanel: [0],
+      showNotifications: false,
+      camTempData: {
+        label: this.$t('Camera 1 - Preset 1 - Region 2'),
+        label2: this.$t('Camera 1 - Preset 1 - Region 3'),
+        data: [],
+      },
+      camTempsOptions: {
+        responsive: true,
+        maintainAspectRatio: true,
+        elements: {
+          point: {
+            radius: 0,
+            hitRadius: 10,
+            hoverRadius: 10,
+          },
+        },
+        tooltips: {
+          enabled: true,
+          mode: 'single',
+          callbacks: {
+            title: (tooltipItems) => {
+              let time = new Date(tooltipItems[0].xLabel);
+              time.setTime(time.getTime() - new Date().getTimezoneOffset() * 60 * 1000);
+              time = time.toISOString().split('T');
+              return `${time[0]} - ${time[1].split('.')[0]}`;
+            },
+            label: (tooltipItems) => {
+              return ` ${tooltipItems.yLabel.toFixed(0)}°`;
+            },
+          },
+        },
+        scales: {
+          xAxes: [
+            {
+              display: true,
+              gridLines: {
+                display: true,
+                color: 'rgba(92,92,92, 0.3)',
+              },
+              scaleLabel: {
+                display: false,
+                //labelString: 'Month',
+              },
+              type: 'time',
+              time: {
+                unit: 'minutes',
+                displayFormats: { minutes: 'HH:mm' },
+                unitStepSize: 10,
+              },
+            },
+          ],
+          yAxes: [
+            {
+              display: true,
+              gridLines: {
+                display: true,
+                color: 'rgba(92,92,92, 0.3)',
+              },
+              scaleLabel: {
+                display: false,
+                //labelString: 'Value',
+              },
+              ticks: {
+                min: 70,
+                max: 120,
+                stepSize: 10,
+                callback: function (value) {
+                  return value + '°';
+                },
+              },
+              type: 'linear',
+            },
+          ],
+        },
+      },
+    };
+  },
 
   async mounted() {
     try {
@@ -165,6 +247,14 @@ export default {
     }
   },
 
+  created() {
+    this.$socket.client.on('camTemps', this.camTemps);
+    this.$socket.client.emit('getCameraTemps');
+  },
+  beforeDestroy() {
+    this.$socket.client.off('getCameraTemps', this.camTemps);
+  },
+
   methods: {
     openGallery(notification) {
       if (notification.recordStoring) {
@@ -180,6 +270,9 @@ export default {
       } else {
         this.notificationsPanel = [];
       }
+    },
+    camTemps(data) {
+      this.camTempData.data = data;
     },
   },
 };

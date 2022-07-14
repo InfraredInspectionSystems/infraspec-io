@@ -257,7 +257,7 @@ export default {
               time: {
                 unit: 'minutes',
                 displayFormats: { minutes: 'HH:mm' },
-                unitStepSize: 5,
+                unitStepSize: 10,
               },
             },
           ],

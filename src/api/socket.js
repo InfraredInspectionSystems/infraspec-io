@@ -305,7 +305,7 @@ export default class Socket {
 
     setTimeout(() => {
       Socket.watchSystem();
-    }, 30000);
+    }, 3000);
   }
 
   static async #handleUptime() {
@@ -339,9 +339,8 @@ export default class Socket {
 
   static async #handleCameraTemperature() {
     try {
-      const cameraTemperature1 = Math.floor(Math.random() * 90) + 80;
-      const cameraTemperature2 = Math.floor(Math.random() * 100) + 90;
-      Socket.#cameraTempsHistory = Socket.#cameraTempsHistory.slice(-60);
+      const cameraTemperature1 = Math.floor(Math.random() * (90 - 89 + 1)) + 89;
+      const cameraTemperature2 = Math.floor(Math.random() * (100 - 98 + 1)) + 98;
       Socket.#cameraTempsHistory.push({
         time: new Date(),
         value: cameraTemperature1,

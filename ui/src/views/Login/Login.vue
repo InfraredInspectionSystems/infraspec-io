@@ -24,7 +24,7 @@
         
         v-btn.login-btn.tw-text-white.tw-mt-2(:loading="loading" block depressed color="var(--cui-primary)" height="48px" type="submit") {{ $t('signin') }}
               
-  span.tw-text-xs.text-muted {{ moduleName }} - v{{ version }}
+  span.tw-text-xs.text-muted infraspec.io - v{{ version }}
 </template>
 
 <script>
