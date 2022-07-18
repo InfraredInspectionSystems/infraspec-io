@@ -22,7 +22,7 @@ module.exports = {
             cert: fs.readFileSync(configJson.ssl.cert),
           }
         : false,
-    port: 8082,
+    port: 8083,
   },
   outputDir: path.resolve(__dirname, '../interface'),
   productionSourceMap: false,

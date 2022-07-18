@@ -4,7 +4,7 @@
 import ffmpegPath from 'ffmpeg-for-homebridge';
 
 export const uiDefaults = {
-  port: 8082,
+  port: 8083,
 };
 
 export const httpDefaults = {
