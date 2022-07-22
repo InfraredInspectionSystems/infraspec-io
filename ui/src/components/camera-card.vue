@@ -248,7 +248,7 @@ export default {
     },
     handlePanLeft() {
       axios
-        .get(`http://localhost:2000/ptz/left?address=${this.camera.manufacturer}&id=${this.camera.model}`)
+        .get(`http://192.168.0.88:2000/ptz/left?address=${this.camera.manufacturer}&id=${this.camera.model}`)
         .then(function (response) {
           // handle success
           console.log(response);
@@ -263,7 +263,7 @@ export default {
     },
     handlePanRight() {
       axios
-        .get(`http://localhost:2000/ptz/right?address=${this.camera.manufacturer}&id=${this.camera.model}`)
+        .get(`http://192.168.0.88:2000/ptz/right?address=${this.camera.manufacturer}&id=${this.camera.model}`)
         .then(function (response) {
           // handle success
           console.log(response);
@@ -278,7 +278,7 @@ export default {
     },
     handleTiltUp() {
       axios
-        .get(`http://localhost:2000/ptz/up?address=${this.camera.manufacturer}&id=${this.camera.model}`)
+        .get(`http://192.168.0.88:2000/ptz/up?address=${this.camera.manufacturer}&id=${this.camera.model}`)
         .then(function (response) {
           // handle success
           console.log(response);
@@ -293,7 +293,7 @@ export default {
     },
     handleTiltDown() {
       axios
-        .get(`http://localhost:2000/ptz/down?address=${this.camera.manufacturer}&id=${this.camera.model}`)
+        .get(`http://192.168.0.88:2000/ptz/down?address=${this.camera.manufacturer}&id=${this.camera.model}`)
         .then(function (response) {
           // handle success
           console.log(response);
@@ -308,7 +308,7 @@ export default {
     },
     handleResetPtz() {
       axios
-        .get(`http://localhost:2000/ptz/reset?address=${this.camera.manufacturer}&id=${this.camera.model}`)
+        .get(`http://192.168.0.88:2000/ptz/reset?address=${this.camera.manufacturer}&id=${this.camera.model}`)
         .then(function (response) {
           // handle success
           console.log(response);
@@ -323,7 +323,7 @@ export default {
     },
     handleZoomIn() {
       axios
-        .get(`http://localhost:2000/ptz/zoomin?address=${this.camera.manufacturer}&id=${this.camera.model}`)
+        .get(`http://192.168.0.88:2000/ptz/zoomin?address=${this.camera.manufacturer}&id=${this.camera.model}`)
         .then(function (response) {
           // handle success
           console.log(response);
@@ -338,7 +338,7 @@ export default {
     },
     handleZoomOut() {
       axios
-        .get(`http://localhost:2000/ptz/zoomout?address=${this.camera.manufacturer}&id=${this.camera.model}`)
+        .get(`http://192.168.0.88:2000/ptz/zoomout?address=${this.camera.manufacturer}&id=${this.camera.model}`)
         .then(function (response) {
           // handle success
           console.log(response);
