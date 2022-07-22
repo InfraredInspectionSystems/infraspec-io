@@ -14,14 +14,20 @@
       v-row.tw-w-full.tw-h-full
         v-col.tw-mb-3(:cols="cols")
           Chart.tw-mt-5(:dataset="camTempData" :options="camTempsOptions")
-    v-col.tw-flex.tw-justify-between.tw-items-center.tw-mt-2(cols="12")
-      .tw-w-full.tw-flex.tw-justify-between.tw-items-center
-        .tw-block
-          h2.tw-leading-6 {{ $route.params.name }}
-          span.subtitle {{ camera.settings.room }}
-        .tw-block
-          v-btn.tw-text-white(fab small color="var(--cui-primary)" @click="$router.push(`/cameras/${camera.name}/feed`)")
-            v-icon(size="20") {{ icons['mdiOpenInNew'] }}
+      v-row.tw-w-full.tw-h-full
+        v-col.tw-flex.tw-justify-between.tw-items-center.tw-mt-2(cols="8")
+          .tw-w-full.tw-flex.tw-justify-between.tw-items-center
+            .tw-block
+              h2.tw-leading-6 {{ $route.params.name }}
+              span.subtitle {{ camera.settings.room }}
+        v-col.tw-flex.tw-items-right.tw-mt-2(cols="4")
+          .tw-w-full.tw-flex.tw-justify-between.tw-items-end
+            .tw-block
+              v-btn.tw-text-white(fab small color="var(--cui-primary)" @click="$router.push(`/`)")
+                v-icon(size="20") {{ icons['mdiDownload'] }}
+            .tw-block
+              v-btn.tw-text-white(fab small color="var(--cui-primary)" @click="$router.push(`/cameras/${camera.name}/feed`)")
+                v-icon(size="20") {{ icons['mdiOpenInNew'] }}
 
     v-col.tw-px-0.tw-flex.tw-justify-between.tw-items-center.tw-mt-2(:cols="cols")
       v-expansion-panels(v-model="notificationsPanel" multiple)
@@ -39,7 +45,7 @@
                             .tw-flex.tw-justify-center.tw-items-center.tw-h-full
                               v-progress-circular(indeterminate color="var(--cui-primary)" size="16")
                     v-list-item-content
-                      v-list-item-title.text-default.tw-font-semibold {{ `${$t('movement_detected')} (${notification.label.includes("no label") ? $t("no_label") : notification.label.includes("Custom") ? $t("custom") : notification.label})` }}
+                      v-list-item-title.text-default.tw-font-semibold {{ `(${notification.label.includes("no label") ? $t("no_label") : notification.label.includes("Custom") ? $t("custom") : notification.message})` }}
                       v-list-item-subtitle.text-muted {{ `${$t('time')}: ${notification.time}` }}
                     v-list-item-action
                       v-btn.text-muted(icon @click="openGallery(notification)")
@@ -73,7 +79,7 @@
 <script>
 import LightBox from 'vue-it-bigger';
 import 'vue-it-bigger/dist/vue-it-bigger.min.css';
-import { mdiOpenInNew, mdiPlusCircle } from '@mdi/js';
+import { mdiOpenInNew, mdiPlusCircle, mdiDownload } from '@mdi/js';
 import VueAspectRatio from 'vue-aspect-ratio';
 
 import { getCamera, getCameraSettings } from '@/api/cameras.api';
@@ -110,6 +116,7 @@ export default {
       icons: {
         mdiOpenInNew,
         mdiPlusCircle,
+        mdiDownload,
       },
       images: [],
       loading: true,
