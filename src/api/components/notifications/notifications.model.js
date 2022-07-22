@@ -124,6 +124,8 @@ export const createNotification = async (data) => {
       ? '_d'
       : data.trigger === 'temperature_measurement_alert'
       ? '_t'
+      : data.trigger === 'line_detection'
+      ? '_s'
       : '_c') +
     '_CUI';
 
