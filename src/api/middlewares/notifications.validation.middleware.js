@@ -5,9 +5,9 @@ export const hasValidFields = async (req, res, next) => {
   let errors = [];
 
   if (req.body) {
-    if (!req.body.camera) {
-      errors.push('Missing camera field');
-    }
+    // if (!req.body.camera) {
+    //   errors.push('Missing camera field');
+    // }
 
     if (!req.body.trigger) {
       errors.push('Missing trigger field');

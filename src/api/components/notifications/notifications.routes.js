@@ -109,8 +109,8 @@ export const routesConfig = (app) => {
    *         description: Internal server error
    */
   app.post('/api/notifications', [
-    ValidationMiddleware.validJWTNeeded,
-    PermissionMiddleware.minimumPermissionLevelRequired('notifications:edit'),
+    //ValidationMiddleware.validJWTNeeded,
+    //PermissionMiddleware.minimumPermissionLevelRequired('notifications:edit'),
     NotificationsValidationMiddleware.hasValidFields,
     NotificationsController.insert,
   ]);

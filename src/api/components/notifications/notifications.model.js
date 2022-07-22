@@ -95,7 +95,10 @@ export const findById = async (id) => {
 };
 
 export const createNotification = async (data) => {
-  const camera = await Database.interfaceDB.chain.get('cameras').find({ name: data.camera }).cloneDeep().value();
+  let camera;
+  camera = await (data.ip
+    ? Database.interfaceDB.chain.get('cameras').find({ manufacturer: data.ip, model: data.channel }).cloneDeep().value()
+    : Database.interfaceDB.chain.get('cameras').find({ name: data.camera }).cloneDeep().value());
   const camerasSettings = await Database.interfaceDB.chain.get('settings').get('cameras').cloneDeep().value();
 
   if (!camera) {
@@ -115,13 +118,20 @@ export const createNotification = async (data) => {
     id +
     '-' +
     timestamp +
-    (data.trigger === 'motion' ? '_m' : data.trigger === 'doorbell' ? '_d' : '_c') +
+    (data.trigger === 'motion'
+      ? '_m'
+      : data.trigger === 'doorbell'
+      ? '_d'
+      : data.trigger === 'temperature_measurement_alert'
+      ? '_t'
+      : '_c') +
     '_CUI';
 
   const extension = data.type === 'Video' ? 'mp4' : 'jpeg';
   const label = (data.label || 'no label').toString();
 
   const notification = {
+    title: camera.name + `(ip:${data.ip})(channel:${data.channel})(region:${data.region})`,
     id: id,
     camera: camera.name,
     fileName: `${fileName}.${extension}`,
@@ -134,12 +144,16 @@ export const createNotification = async (data) => {
     time: time,
     timestamp: timestamp,
     label: label,
+    message: `${data.trigger} - ${time} - ${data.message}`,
+    ip: data.ip,
+    channel: data.channel,
+    region: data.region,
   };
 
   const notify = {
     ...notification,
-    title: camera.name,
-    message: `${data.trigger} - ${time}`,
+    title: camera.name + `( IP:${data.ip}) (Channel:${data.channel})`,
+    message: `${data.trigger} - ${time} - ${data.message}`,
     subtxt: room,
     mediaSource: data.storing ? `/files/${fileName}.${extension}` : false,
     thumbnail: data.storing
@@ -149,6 +163,9 @@ export const createNotification = async (data) => {
       : false,
     count: true,
     isNotification: true,
+    ip: data.ip,
+    channel: data.channel,
+    region: data.region,
   };
 
   const notificationSettings = await Database.interfaceDB.chain

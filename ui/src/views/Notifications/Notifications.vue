@@ -153,6 +153,8 @@ export default {
             if (!not.message) {
               if (not.camera && not.room) {
                 not.message = this.$t('notification_text').replace('@', not.camera).replace('%', not.room);
+              } else if (not.label === 'temperature_measurement_alarm') {
+                not.message = this.$t(`${not.camera} - ${not.data}`);
               } else {
                 not.message = this.$t('movement_detected');
               }
