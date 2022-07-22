@@ -339,8 +339,8 @@ export default class Socket {
 
   static async #handleCameraTemperature() {
     try {
-      const cameraTemperature1 = Math.floor(Math.random() * (90 - 89 + 1)) + 89;
-      const cameraTemperature2 = Math.floor(Math.random() * (100 - 98 + 1)) + 98;
+      const cameraTemperature1 = Math.floor(Math.random() * (80 - 75 + 1)) + 80;
+      const cameraTemperature2 = Math.floor(Math.random() * (82 - 76 + 1)) + 82;
       Socket.#cameraTempsHistory.push({
         time: new Date(),
         value: cameraTemperature1,
