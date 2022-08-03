@@ -71,8 +71,6 @@ export default class App {
             'file:',
             'filesystem:',
             'mediastream:',
-            'https://registry.npmjs.org',
-            'https://unpkg.com',
             "'unsafe-eval'",
             "'unsafe-inline'",
             "'self'",
