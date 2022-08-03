@@ -12,7 +12,8 @@
     "watch": "concurrently \"npm run watch:server\" \"npm run watch:ui\"",
     "watch:server": "nodemon",
     "watch:ui": "npm run serve --prefix ui",
-    "prepublishOnly": "npm i --package-lock-only && npm run lint && npm run build"
+    "prepublishOnly": "npm i --package-lock-only && npm run lint && npm run build",
+    "start": "bin/camera.ui.js ./test/camera.ui"
   },
   "main": "src/index.js",
   "dependencies": {

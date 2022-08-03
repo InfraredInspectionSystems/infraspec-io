@@ -4,6 +4,8 @@
 
 # camera.ui
 
+Run prod `pm2 start node bin/camera.ui.js ./test/camera.ui`
+
 [![npm](https://img.shields.io/npm/v/camera.ui.svg?style=flat-square)](https://www.npmjs.com/package/camera.ui)
 [![npm](https://img.shields.io/npm/v/camera.ui/beta.svg?style=flat-square)](https://www.npmjs.com/package/camera.ui)
 [![npm](https://img.shields.io/npm/dt/camera.ui.svg?style=flat-square)](https://www.npmjs.com/package/camera.ui)
